@@ -1,8 +1,9 @@
-from dataclasses import dataclass
 from pathlib import Path
 import math
-import random
+# import random
 from typing import Iterable
+import os
+from numpy import random
 
 from loguru import logger
 
@@ -10,30 +11,36 @@ from bot import bot, send_progress, admins
 
 
 def combinate_text(raw_text: str) -> None:
-    _combinate_phrases(raw_text)
+    _combinate_text(raw_text)
     logger.info("Done")
 
 
-def _combinate_phrases(raw_text: str) -> None:
+def _combinate_text(raw_text: str) -> None:
+    _delete_old_file()
     blocks = _get_blocks(raw_text)
-    rows_lists = _get_rows_lists(blocks)
-    number_combinations = get_number_combinations(rows_lists)
+    rows = _get_rows(blocks)
+    number_combinations = get_number_combinations(rows)
 
-    set_rows = set()
+    unique_rows = set()
     counter = 0
-    while not _is_all_combinations_got(set_rows, number_combinations):
-        start_len = len(set_rows)
-        row = _get_combined_row(rows_lists)
-        set_rows.add(row)
-        finish_len = len(set_rows)
+    while not _is_all_combinations_got(unique_rows, number_combinations):
+        start_len = len(unique_rows)
+        row = _get_combinated_row(rows)
+        unique_rows.add(row)
+        finish_len = len(unique_rows)
         if finish_len > start_len:
             counter += 1
             _send_progress(counter, number_combinations)
         _print_progress(counter, number_combinations)
-        
 
-    list_rows = _convert_set_to_list(set_rows)
+    list_rows = _convert_set_to_list(unique_rows)
     _write_lines(list_rows)
+
+
+def _delete_old_file() -> None:
+    path = Path("generated.txt")
+    if path.is_file():
+        os.remove(path)
 
 
 def _get_blocks(raw_text: str) -> list[str]:
@@ -42,7 +49,7 @@ def _get_blocks(raw_text: str) -> list[str]:
     return blocks
 
 
-def _get_rows_lists(text_blocks: list[str]) -> list[list[str]]:
+def _get_rows(text_blocks: list[str]) -> list[list[str]]:
     """
     Get lists of row from text blocks
     """
@@ -68,7 +75,7 @@ def _is_all_combinations_got(set_rows: set[str],
     return True
 
 
-def _get_combined_row(rows_lists: list[list[str]]) -> str:
+def _get_combinated_row(rows_lists: list[list[str]]) -> str:
     row = ""
     for i in range(len(rows_lists)):
         row += f"{random.choice(rows_lists[i])} "
@@ -103,3 +110,61 @@ def _write_lines(data: Iterable) -> None:
     with open(path, mode="w", encoding="UTF-8") as file:
         file.writelines(data)
     logger.debug("successful writing to a file")
+
+
+if __name__ == "__main__":
+    raw_text = (
+"""A very vulgar girl missed a real guy
+An experienced girl without scandals and nerves will give pleasure
+A petite beauty wants attention. I'm good, really
+I love when they fuck me, not the brain
+I love cheeky guys who are able to directly say what they want
+My hands are able to relax and deliver rilax, and my mouth will fill your body with passion
+Hi! I'm your gift, I want you to unwrap me as soon as possible. I wonder what's inside?
+We miss each other with a girlfriend. We want to meet someone and have fun
+I live with my sister. We spend time together. We are ready to meet and discuss LJ. Do you like this format of meetings?
+They can be your slave or mistress, I can do nice and turn on the passive. I'll be whatever you want.
+~
+✨
+🍑
+🍒
+🐒
+🧚
+👧
+👩‍🦰
+👩
+🙊
+💋
+💕
+💞
+☺️
+😘
+~
+it's been a long time since anyone punished
+me at all,
+I really want
+to think about meetings every day.
+I'm waiting for brave guys.
+I like initiative men.
+I appreciate guys if they are the first to take the initiative.
+I want to finally relax.
+I dream of a wonderful evening
+my secret desire is to spend the evening with a normal man
+~
+✨
+🍑
+🍒
+🐒
+🧚
+👧
+👩‍🦰
+👩
+🙊
+💋
+💕
+💞
+☺️
+😘"""
+)
+
+    combinate_text(raw_text)
