@@ -41,7 +41,7 @@ def send_combinated_text(message: Message) -> None:
 
 
 def _send_document(message: Message) -> None:
-    path = Path("generated.txt")
+    path = Path("generated.zip")
     if path.is_file():
         file = open(path, "rb")
         bot.send_document(message.chat.id, document=file)

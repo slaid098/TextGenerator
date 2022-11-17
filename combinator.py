@@ -4,6 +4,7 @@ import math
 from typing import Iterable
 import os
 from numpy import random
+import zipfile
 
 from loguru import logger
 
@@ -110,11 +111,23 @@ def _write_lines(data: Iterable) -> None:
     with open(path, mode="w", encoding="UTF-8") as file:
         file.writelines(data)
     logger.debug("successful writing to a file")
+    _add_to_zip()
+
+
+def _add_to_zip() -> None:
+    path_txt = Path("generated.txt")
+    path_zip = Path("generated.zip")
+    try:
+        with zipfile.ZipFile(path_zip, 'a') as zipf:
+            zipf.write(str(path_txt))
+        logger.debug("successful added to a zip")
+    except Exception as ex:
+        logger.warning(f"{type(ex)}: {ex}")
 
 
 if __name__ == "__main__":
     raw_text = (
-"""A very vulgar girl missed a real guy
+        """A very vulgar girl missed a real guy
 An experienced girl without scandals and nerves will give pleasure
 A petite beauty wants attention. I'm good, really
 I love when they fuck me, not the brain
@@ -165,6 +178,6 @@ my secret desire is to spend the evening with a normal man
 💞
 ☺️
 😘"""
-)
+    )
 
     combinate_text(raw_text)
