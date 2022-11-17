@@ -70,7 +70,7 @@ def get_number_combinations(rows_lists: list[list[str]]) -> int:
 
 def _is_all_combinations_got(set_rows: set[str],
                              number_combinations: int) -> bool:
-    if len(set_rows) != number_combinations:
+    if len(set_rows) < number_combinations*0.8:
         return False
     return True
 
