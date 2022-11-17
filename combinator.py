@@ -120,7 +120,7 @@ def _add_to_zip() -> None:
     path_zip = Path("generated.zip")
     try:
         with ZipFile(path_zip, 'w') as zipf:
-            zipf.write(path_txt)
+            zipf.write(path_txt, compresslevel=9)
         logger.debug("successful added to a zip")
     except Exception as ex:
         logger.warning(f"{type(ex)}: {ex}")
