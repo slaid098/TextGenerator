@@ -4,7 +4,7 @@ import math
 from typing import Iterable
 import os
 from numpy import random
-import zipfile
+from zipfile import ZipFile
 
 from loguru import logger
 
@@ -17,7 +17,7 @@ def combinate_text(raw_text: str) -> None:
 
 
 def _combinate_text(raw_text: str) -> None:
-    _delete_old_file()
+    _delete_old_files()
     blocks = _get_blocks(raw_text)
     rows = _get_rows(blocks)
     number_combinations = get_number_combinations(rows)
@@ -38,10 +38,11 @@ def _combinate_text(raw_text: str) -> None:
     _write_lines(list_rows)
 
 
-def _delete_old_file() -> None:
-    path = Path("generated.txt")
-    if path.is_file():
-        os.remove(path)
+def _delete_old_files() -> None:
+    path_list = [Path("generated.txt"), Path("generated.zip")]
+    for path in path_list:
+        if path.is_file():
+            os.remove(path)
 
 
 def _get_blocks(raw_text: str) -> list[str]:
@@ -118,8 +119,8 @@ def _add_to_zip() -> None:
     path_txt = Path("generated.txt")
     path_zip = Path("generated.zip")
     try:
-        with zipfile.ZipFile(path_zip, 'a') as zipf:
-            zipf.write(str(path_txt))
+        with ZipFile(path_zip, 'w') as zipf:
+            zipf.write(path_txt)
         logger.debug("successful added to a zip")
     except Exception as ex:
         logger.warning(f"{type(ex)}: {ex}")
