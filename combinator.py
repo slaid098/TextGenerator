@@ -57,7 +57,7 @@ def _get_rows(text_blocks: list[str]) -> list[list[str]]:
     """
     rows_lists: list[list[str]] = []
     for block in text_blocks:
-        rows = block.split("\n")
+        rows = block.split("|")
         rows = [i for i in rows if i]
         rows_lists.append(rows)
     logger.debug("Rows_lists is ready!")
