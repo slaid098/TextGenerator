@@ -57,7 +57,7 @@ def _get_rows(text_blocks: list[str]) -> list[list[str]]:
     """
     rows_lists: list[list[str]] = []
     for block in text_blocks:
-        rows = block.split("|")
+        rows = block.split("\n")
         rows = [i for i in rows if i]
         rows_lists.append(rows)
     logger.debug("Rows_lists is ready!")
@@ -80,9 +80,10 @@ def _is_all_combinations_got(set_rows: set[str],
 def _get_combinated_row(rows_lists: list[list[str]]) -> str:
     row = ""
     for i in range(len(rows_lists)):
-        row += f"{random.choice(rows_lists[i])} "
-        if i+1 == len(rows_lists):
-            row += "|\n"
+        if i+1 != len(rows_lists):
+            row += f"{random.choice(rows_lists[i])}&"
+        else:
+            row += f"{random.choice(rows_lists[i])}|\n"
     return row
 
 
