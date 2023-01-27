@@ -33,11 +33,12 @@ def send_start_message(message: Message) -> None:
             logger.warning(f"Bot: {type(ex)} {ex}")
 
 
-@bot.message_handler()
+@bot.message_handler(content_types=["document", "text"])
 def send_combinated_text(message: Message) -> None:
     if message.chat.id in admins:
         try:
             if message.content_type == "document":
+                logger.debug("Получен документ")
                 combinations = _get_raw_combinations(message)
             else:
                 combinations = message.text
