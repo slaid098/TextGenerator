@@ -1,5 +1,6 @@
 from pathlib import Path
 import shutil
+import os
 
 from telebot.types import Message
 from loguru import logger
@@ -52,7 +53,9 @@ def _get_raw_combinations(message: Message) -> None:
         path_file = Path("combinations.txt")
         url = bot.get_file_url(message.document.file_id)
         _download_file(url, path_file)
-        return read_write_file(path_file)
+        raw_combinations = read_write_file(path_file)
+        os.remove(path_file)
+        return raw_combinations
     except Exception as ex:
         logger.warning(f"[bot]: {type(ex)} {ex}")
 
