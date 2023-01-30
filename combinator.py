@@ -79,9 +79,10 @@ def _is_all_combinations_got(set_rows: set[str],
 
 def _get_combinated_row(rows_lists: list[list[str]]) -> str:
     row = ""
+    separator = "&" if "[" in str(rows_lists) else " "
     for i in range(len(rows_lists)):
         if i+1 != len(rows_lists):
-            row += f"{random.choice(rows_lists[i])}&"
+            row += f"{random.choice(rows_lists[i])}{separator}"
         else:
             row += f"{random.choice(rows_lists[i])}|\n"
     return row
