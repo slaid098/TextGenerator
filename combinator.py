@@ -82,7 +82,7 @@ def _get_combinated_row(rows_lists: list[list[str]]) -> str:
     separator = "&" if "&" in str(rows_lists) else " "
     for i in range(len(rows_lists)):
         if i+1 != len(rows_lists):
-            row += f"{random.choice(rows_lists[i])}{separator}".replace("|", "\n")
+            row += f"{random.choice(rows_lists[i])}{separator}".replace("|", "\n\n")
         else:
             row += f"{random.choice(rows_lists[i])}|\n".replace("|", "", 1)
     return row
