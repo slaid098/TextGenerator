@@ -35,6 +35,7 @@ def _combinate_text(raw_text: str) -> None:
         _print_progress(counter, number_combinations)
 
     list_rows = _convert_set_to_list(unique_rows)
+    list_rows = [i.replace("##", "\n\n").replace("#", "\n") for i in list_rows]
     _write_lines(list_rows)
 
 
@@ -82,7 +83,7 @@ def _get_combinated_row(rows_lists: list[list[str]]) -> str:
     separator = "&" if "&" in str(rows_lists) else " "
     for i in range(len(rows_lists)):
         if i+1 != len(rows_lists):
-            row += f"{random.choice(rows_lists[i])}{separator}".replace("##", "\n\n").replace("#", "\n")
+            row += f"{random.choice(rows_lists[i])}{separator}"
         else:
             row += f"{random.choice(rows_lists[i])}|\n"
     return row
