@@ -82,9 +82,9 @@ def _get_combinated_row(rows_lists: list[list[str]]) -> str:
     separator = "&" if "&" in str(rows_lists) else " "
     for i in range(len(rows_lists)):
         if i+1 != len(rows_lists):
-            row += f"{random.choice(rows_lists[i])}{separator}".replace("|", "\n\n")
+            row += f"{random.choice(rows_lists[i])}{separator}"
         else:
-            row += f"{random.choice(rows_lists[i])}|\n".replace("|", "", 1)
+            row += f"{random.choice(rows_lists[i])}|\n"
     return row
 
 
@@ -130,22 +130,57 @@ def _add_to_zip() -> None:
 
 if __name__ == "__main__":
     raw_text = (
-        """‼️СРОЧНО
-‼️ОЧЕНЬСРОЧНЫЙ НАБОР|
-‼️ВАКАНСИЯ|
-‼️ТРЕБУЮТСЯ|
-‼️ОТКРЫТЫЕВАКАНСИИ,СРОЧНО|
+        """A very vulgar girl missed a real guy
+An experienced girl without scandals and nerves will give pleasure
+A petite beauty wants attention. I'm good, really
+I love when they fuck me, not the brain
+I love cheeky guys who are able to directly say what they want
+My hands are able to relax and deliver rilax, and my mouth will fill your body with passion
+Hi! I'm your gift, I want you to unwrap me as soon as possible. I wonder what's inside?
+We miss each other with a girlfriend. We want to meet someone and have fun
+I live with my sister. We spend time together. We are ready to meet and discuss LJ. Do you like this format of meetings?
+They can be your slave or mistress, I can do nice and turn on the passive. I'll be whatever you want.
 ~
-👷‍♂️СТРОЙКА МОСКВА!|
-👷‍♂️РАБОТАМОСКВА!|
-👷‍♂️ТРЕБУЮТСЯ РАБОЧИЕ В МОСКВЕ!|
-👷‍♂️НУЖНЫ РАБОТНИКИ ВМОСКВУ!|
-👷‍♂️НАБИРАЕМ СТРОИТЕЛЕЙ ВМОСКВУ!|
+✨
+🍑
+🍒
+🐒
+🧚
+👧
+👩‍🦰
+👩
+🙊
+💋
+💕
+💞
+☺️
+😘
 ~
-ТЕХНАРИ:|
-ТЕХНИКИ:|
-ТЕХНИЧЕСКОЕОБЕСПЕЧЕНИЕ:|
-ОБСЛУЖИВАНИЕ:|
-""")
+it's been a long time since anyone punished
+me at all,
+I really want
+to think about meetings every day.
+I'm waiting for brave guys.
+I like initiative men.
+I appreciate guys if they are the first to take the initiative.
+I want to finally relax.
+I dream of a wonderful evening
+my secret desire is to spend the evening with a normal man
+~
+✨
+🍑
+🍒
+🐒
+🧚
+👧
+👩‍🦰
+👩
+🙊
+💋
+💕
+💞
+☺️
+😘"""
+    )
 
     combinate_text(raw_text)
